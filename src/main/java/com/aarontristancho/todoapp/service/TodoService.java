@@ -1,5 +1,6 @@
 package com.aarontristancho.todoapp.service;
 
+import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class TodoService {
                 return todo;
             }
         }
-        return null;
+        throw new TodoNotFoundException(id);
     }
 
     //POST - creat a new "to do"
