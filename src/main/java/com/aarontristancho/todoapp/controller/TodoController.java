@@ -2,9 +2,7 @@ package com.aarontristancho.todoapp.controller;
 
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.service.TodoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,26 @@ public class TodoController {
     @GetMapping
     public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
+    }
+
+    @GetMapping("/{id}")
+    public Todo getTodoById(@PathVariable Long id) {
+        return todoService.getTodoById(id);
+    }
+
+    @PostMapping
+    public Todo createTodo(@RequestBody Todo todo) {
+        return todoService.createTodo(todo);
+    }
+
+    @PatchMapping("/{id}/complete")
+    public Todo completeTodo(@PathVariable Long id) {
+        return todoService.completeTodo(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Todo deleteTodo(@PathVariable Long id) {
+        return todoService.deleteTodo(id);
     }
 
 }
