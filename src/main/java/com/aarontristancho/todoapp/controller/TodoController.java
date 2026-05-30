@@ -1,7 +1,10 @@
 package com.aarontristancho.todoapp.controller;
 
+import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.service.TodoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+    //End Points
     @GetMapping
     public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
@@ -37,8 +41,9 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public Todo deleteTodo(@PathVariable Long id) {
-        return todoService.deleteTodo(id);
+    public ResponseEntity<Void> deleteTodo(@PathVariable Long id){
+        todoService.deleteTodo(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

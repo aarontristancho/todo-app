@@ -50,10 +50,9 @@ public class TodoService {
     }
 
     //DELETE - delete a "to do" from the list
-    public Todo deleteTodo(Long id) {
+    public void deleteTodo(Long id) {
         Todo todo = getTodoById(id);
         todos.remove(todo);
-        return todo;
     }
 
 }
