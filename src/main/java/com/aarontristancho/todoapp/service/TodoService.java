@@ -42,7 +42,15 @@ public class TodoService {
         return newTodo;
     }
 
-    //PATCH - modify a "to do". Make it completed
+    //PUT - modify an entire "to do"
+    public Todo updateTodo(Long id, Todo updatedTodo) {
+        Todo todo = getTodoById(id);
+        todo.setTitle(updatedTodo.getTitle());
+        todo.setCompleted(updatedTodo.isCompleted());
+        return todo;
+    }
+
+    //PATCH - modify an attribute of a "to do". Make it completed
     public Todo completeTodo(Long id) {
         Todo todo = getTodoById(id);
         todo.setCompleted(true);

@@ -31,8 +31,15 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo createTodo(@RequestBody Todo todo) {
-        return todoService.createTodo(todo);
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+        Todo createdTodo = todoService.createTodo(todo);
+        return new ResponseEntity<>(createdTodo, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
+        Todo updatedTodo = todoService.updateTodo(id, todo);
+        return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}/complete")
