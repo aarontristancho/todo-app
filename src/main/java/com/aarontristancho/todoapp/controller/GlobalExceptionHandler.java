@@ -1,5 +1,6 @@
 package com.aarontristancho.todoapp.controller;
 
+import com.aarontristancho.todoapp.exception.TodoInvalidDataException;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    //ResponseEntity represents the entire HTTP response
+    // Translate this exception to an HTTP response 404
     @ExceptionHandler(TodoNotFoundException.class) //Annotation - When this exception occurs, execute the below method
-    public ResponseEntity<String> handleTodoNotFound(TodoNotFoundException ex) {
+    public ResponseEntity<String> handleTodoNotFound(TodoNotFoundException ex) { //ResponseEntity represents the entire HTTP response
         return new ResponseEntity<>(
                 ex.getMessage(),
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    // Translate this exception to an HTTP response 400
+    @ExceptionHandler(TodoInvalidDataException.class)
+    public ResponseEntity<String> handleTodoInvalidData(TodoInvalidDataException ex) {
+        return new ResponseEntity<>(
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST
         );
     }
 
