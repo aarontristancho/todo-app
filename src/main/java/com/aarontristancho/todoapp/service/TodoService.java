@@ -3,20 +3,25 @@ package com.aarontristancho.todoapp.service;
 import com.aarontristancho.todoapp.exception.TodoInvalidDataException;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
+import com.aarontristancho.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TodoService {
 
     private List<Todo> todos = new ArrayList<>();
-    private Long nextId = 3L;
+    private Long nextId = 1L;
 
-    public TodoService() {
-        todos.add(new Todo(1L, "Learn Spring Boot", false));
-        todos.add(new Todo(2L, "Build a REST API", false));
+    // Attribute
+    private final TodoRepository todoRepository;
+
+    // Constructor (injecting TodoRepository)
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
     }
 
     //GET All - get the whole "to do" list
@@ -26,11 +31,9 @@ public class TodoService {
 
     //GET - get only one "to do" by id
     public Todo getTodoById(Long id) {
-        for (int i = 0; i < todos.size(); i++) {
-            Todo todo = todos.get(i);
-            if (todo.getId().equals(id)) {
-                return todo;
-            }
+        Optional<Todo> todo = todoRepository.findById(id);
+        if (todo.isPresent()) {
+            return todo.get();
         }
         throw new TodoNotFoundException(id);
     }
