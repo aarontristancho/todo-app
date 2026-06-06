@@ -6,15 +6,11 @@ import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TodoService {
-
-    private List<Todo> todos = new ArrayList<>();
-    private Long nextId = 1L;
 
     // Attribute
     private final TodoRepository todoRepository;
@@ -24,12 +20,12 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    //GET All - get the whole "to do" list
+    //GET All - Get from Repository the whole "to do" list
     public List<Todo> getAllTodos() {
-        return todos;
+        return todoRepository.findAll();
     }
 
-    //GET - get only one "to do" by id
+    //GET - Get from Repository a "to do" by id
     public Todo getTodoById(Long id) {
         Optional<Todo> todo = todoRepository.findById(id);
         if (todo.isPresent()) {
@@ -38,13 +34,11 @@ public class TodoService {
         throw new TodoNotFoundException(id);
     }
 
-    //POST - creat a new "to do"
+    //POST - Create a new "to do"
     public Todo createTodo(Todo todo) {
         validateTodo(todo); // First check if title is null
-        Todo newTodo = new Todo(nextId, todo.getTitle(), false);
-        todos.add(newTodo);
-        nextId++;
-        return newTodo;
+        todo.setCompleted(false);
+        return todoRepository.save(todo);
     }
 
     //PUT - modify an entire "to do"
@@ -65,8 +59,8 @@ public class TodoService {
 
     //DELETE - delete a "to do" from the list
     public void deleteTodo(Long id) {
-        Todo todo = getTodoById(id);
-        todos.remove(todo);
+        getTodoById(id);
+        todoRepository.deleteById(id);
     }
 
     // Validate if title is null

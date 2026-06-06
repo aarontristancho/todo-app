@@ -1,6 +1,5 @@
 package com.aarontristancho.todoapp.controller;
 
-import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.service.TodoService;
 import org.springframework.http.HttpStatus;
