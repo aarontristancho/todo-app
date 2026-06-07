@@ -1,20 +1,23 @@
 package com.aarontristancho.todoapp.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Todo {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String title;
     private boolean completed;
 
+    // Empty constructor
     public Todo() {
     }
 
-    public Todo(Long id, String title, boolean completed) {
-        this.id = id;
-        this.title = title;
-        this.completed = completed;
-    }
-
+    // Setters&Getters
     public Long getId() {
         return id;
     }
