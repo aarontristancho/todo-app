@@ -38,23 +38,23 @@ public class TodoService {
     public Todo createTodo(Todo todo) {
         validateTodo(todo); // First check if title is null
         todo.setCompleted(false);
-        return todoRepository.save(todo);
+        return todoRepository.save(todo);  // Save this "to do" in persistance
     }
 
     //PUT - modify an entire "to do"
     public Todo updateTodo(Long id, Todo updatedTodo) {
         Todo todo = getTodoById(id); // First check if this id exist
-        validateTodo(updatedTodo); // Then check if title is null
+        validateTodo(updatedTodo);
         todo.setTitle(updatedTodo.getTitle());
         todo.setCompleted(updatedTodo.isCompleted());
-        return todo;
+        return todoRepository.save(todo);
     }
 
     //PATCH - modify an attribute of a "to do". Make it completed
     public Todo completeTodo(Long id) {
         Todo todo = getTodoById(id);
         todo.setCompleted(true);
-        return todo;
+        return todoRepository.save(todo);
     }
 
     //DELETE - delete a "to do" from the list
