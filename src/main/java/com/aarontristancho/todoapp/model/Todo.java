@@ -3,6 +3,7 @@ package com.aarontristancho.todoapp.model;
 import com.aarontristancho.todoapp.model.enums.Priority;
 import com.aarontristancho.todoapp.model.enums.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Todo {
@@ -10,6 +11,7 @@ public class Todo {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank
     private String title;
     private String note;
     private String category;

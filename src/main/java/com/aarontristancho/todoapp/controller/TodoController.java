@@ -3,6 +3,7 @@ package com.aarontristancho.todoapp.controller;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Status;
 import com.aarontristancho.todoapp.service.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
         Todo createdTodo = todoService.createTodo(todo);
         return new ResponseEntity<>(createdTodo, HttpStatus.CREATED);
     }
@@ -42,13 +43,6 @@ public class TodoController {
         Todo updatedTodo = todoService.updateTodo(id, todo);
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
-
-    /*
-    @PatchMapping("/{id}/complete")
-    public Todo completeTodo(@PathVariable Long id) {
-        return todoService.completeTodo(id);
-    }
-    */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
