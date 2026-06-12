@@ -1,6 +1,7 @@
 package com.aarontristancho.todoapp.controller;
 
 import com.aarontristancho.todoapp.model.Todo;
+import com.aarontristancho.todoapp.model.enums.Status;
 import com.aarontristancho.todoapp.service.TodoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,9 @@ public class TodoController {
 
     //End Points
     @GetMapping
-    public List<Todo> getAllTodos() {
-        return todoService.getAllTodos();
+    public List<Todo> getAllTodos(@RequestParam(value = "category", required = false) String category,
+                                    @RequestParam(value = "status", required = false) Status status) {
+        return todoService.getAllTodos(category, status);
     }
 
     @GetMapping("/{id}")
@@ -41,10 +43,12 @@ public class TodoController {
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
 
+    /*
     @PatchMapping("/{id}/complete")
     public Todo completeTodo(@PathVariable Long id) {
         return todoService.completeTodo(id);
     }
+    */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {

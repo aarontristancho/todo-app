@@ -3,6 +3,8 @@ package com.aarontristancho.todoapp.service;
 import com.aarontristancho.todoapp.exception.TodoInvalidDataException;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
+import com.aarontristancho.todoapp.model.enums.Priority;
+import com.aarontristancho.todoapp.model.enums.Status;
 import com.aarontristancho.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,17 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    //GET All - Get from Repository the whole "to do" list
-    public List<Todo> getAllTodos() {
-        return todoRepository.findAll();
+    //GET All - Get from Repository the whole "to do" list with filters
+    public List<Todo> getAllTodos(String category, Status status) {
+        if (category == null && status == null) {
+            return todoRepository.findAll();
+        } else if (category != null && status == null) {
+            return todoRepository.findByCategoryIgnoreCase(category);
+        } else if (category == null && status != null) {
+            return todoRepository.findByStatus(status);
+        } else {
+            return todoRepository.findByCategoryIgnoreCaseAndStatus(category, status);
+        }
     }
 
     //GET - Get from Repository a "to do" by id
@@ -37,25 +47,42 @@ public class TodoService {
     //POST - Create a new "to do"
     public Todo createTodo(Todo todo) {
         validateTodo(todo); // First check if title is null
-        todo.setCompleted(false);
+        if (todo.getStatus() == null) {
+            todo.setStatus(Status.PENDING);
+        }
+        if (todo.getPriority() == null) {
+            todo.setPriority(Priority.MEDIUM);
+        }
         return todoRepository.save(todo);  // Save this "to do" in persistance
     }
 
     //PUT - modify an entire "to do"
     public Todo updateTodo(Long id, Todo updatedTodo) {
         Todo todo = getTodoById(id); // First check if this id exist
-        validateTodo(updatedTodo);
-        todo.setTitle(updatedTodo.getTitle());
-        todo.setCompleted(updatedTodo.isCompleted());
+        if (updatedTodo.getTitle() != null) {
+            todo.setTitle(updatedTodo.getTitle());
+        }
+        if (updatedTodo.getNote() != null) {
+            todo.setNote(updatedTodo.getNote());
+        }
+        if (updatedTodo.getCategory() != null) {
+            todo.setCategory(updatedTodo.getCategory());
+        }
+        if (updatedTodo.getStatus() != null) {
+            todo.setStatus(updatedTodo.getStatus());
+        }
+        if (updatedTodo.getPriority() != null) {
+            todo.setPriority(updatedTodo.getPriority());
+        }
         return todoRepository.save(todo);
     }
 
     //PATCH - modify an attribute of a "to do". Make it completed
-    public Todo completeTodo(Long id) {
+    /*public Todo completeTodo(Long id) {
         Todo todo = getTodoById(id);
         todo.setCompleted(true);
         return todoRepository.save(todo);
-    }
+    }*/
 
     //DELETE - delete a "to do" from the list
     public void deleteTodo(Long id) {

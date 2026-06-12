@@ -1,8 +1,16 @@
 package com.aarontristancho.todoapp.repository;
 
 import com.aarontristancho.todoapp.model.Todo;
+import com.aarontristancho.todoapp.model.enums.Priority;
+import com.aarontristancho.todoapp.model.enums.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TodoRepository extends JpaRepository<Todo, Long> {}
+import java.util.List;
+
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+
+    List<Todo> findByCategoryIgnoreCase(String category);
+    List<Todo> findByStatus(Status status);
+    List<Todo> findByCategoryIgnoreCaseAndStatus(String category, Status status);
+
+}

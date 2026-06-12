@@ -1,8 +1,8 @@
 package com.aarontristancho.todoapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.aarontristancho.todoapp.model.enums.Priority;
+import com.aarontristancho.todoapp.model.enums.Status;
+import jakarta.persistence.*;
 
 @Entity
 public class Todo {
@@ -11,7 +11,13 @@ public class Todo {
     @GeneratedValue
     private Long id;
     private String title;
-    private boolean completed;
+    private String note;
+    private String category;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
+
 
     // Empty constructor
     public Todo() {
@@ -34,12 +40,44 @@ public class Todo {
         this.title = title;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    /*
     public boolean isCompleted() {
         return completed;
     }
-
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-
+    */
 }
