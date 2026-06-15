@@ -1,6 +1,5 @@
 package com.aarontristancho.todoapp.service;
 
-import com.aarontristancho.todoapp.exception.TodoInvalidDataException;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Priority;

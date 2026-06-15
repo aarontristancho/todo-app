@@ -2,7 +2,6 @@ package com.aarontristancho.todoapp.controller;
 
 import com.aarontristancho.todoapp.error.ValidationError;
 import com.aarontristancho.todoapp.error.ValidationErrorResponse;
-import com.aarontristancho.todoapp.exception.TodoInvalidDataException;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +23,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(
                 ex.getMessage(),
                 HttpStatus.NOT_FOUND
-        );
-    }
-
-    // Translate this exception to an HTTP response 400
-    @ExceptionHandler(TodoInvalidDataException.class)
-    public ResponseEntity<String> handleTodoInvalidData(TodoInvalidDataException ex) {
-        return new ResponseEntity<>(
-                ex.getMessage(),
-                HttpStatus.BAD_REQUEST
         );
     }
 
