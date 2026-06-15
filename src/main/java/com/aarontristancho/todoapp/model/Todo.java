@@ -74,12 +74,4 @@ public class Todo {
         this.priority = priority;
     }
 
-    /*
-    public boolean isCompleted() {
-        return completed;
-    }
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-    */
 }

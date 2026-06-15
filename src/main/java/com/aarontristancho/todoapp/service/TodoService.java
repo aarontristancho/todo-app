@@ -46,7 +46,6 @@ public class TodoService {
 
     //POST - Create a new "to do"
     public Todo createTodo(Todo todo) {
-        validateTodo(todo); // First check if title is null
         if (todo.getStatus() == null) {
             todo.setStatus(Status.PENDING);
         }
@@ -77,24 +76,10 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    //PATCH - modify an attribute of a "to do". Make it completed
-    /*public Todo completeTodo(Long id) {
-        Todo todo = getTodoById(id);
-        todo.setCompleted(true);
-        return todoRepository.save(todo);
-    }*/
-
     //DELETE - delete a "to do" from the list
     public void deleteTodo(Long id) {
         getTodoById(id);
         todoRepository.deleteById(id);
-    }
-
-    // Validate if title is null
-    private void validateTodo(Todo todo) {
-        if (todo.getTitle() == null) {
-            throw new TodoInvalidDataException("Title cannot be null");
-        }
     }
 
 }
