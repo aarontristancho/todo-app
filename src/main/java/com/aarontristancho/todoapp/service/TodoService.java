@@ -1,5 +1,6 @@
 package com.aarontristancho.todoapp.service;
 
+import com.aarontristancho.todoapp.dto.CreateTodoRequest;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Priority;
@@ -44,14 +45,18 @@ public class TodoService {
     }
 
     //POST - Create a new "to do"
-    public Todo createTodo(Todo todo) {
-        if (todo.getStatus() == null) {
-            todo.setStatus(Status.PENDING);
-        }
-        if (todo.getPriority() == null) {
+    public Todo createTodo(CreateTodoRequest request) { // "request" as a DTO object transfers to "to do" entity
+        Todo todo = new Todo();
+        todo.setTitle(request.getTitle());
+        todo.setNote(request.getNote());
+        todo.setCategory(request.getCategory());
+        todo.setStatus(Status.PENDING);
+        if (request.getPriority() == null) {
             todo.setPriority(Priority.MEDIUM);
+        } else {
+            todo.setPriority(request.getPriority());
         }
-        return todoRepository.save(todo);  // Save this "to do" in persistance
+        return todoRepository.save(todo);
     }
 
     //PUT - modify an entire "to do"

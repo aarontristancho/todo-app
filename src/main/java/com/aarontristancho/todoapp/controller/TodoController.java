@@ -1,5 +1,6 @@
 package com.aarontristancho.todoapp.controller;
 
+import com.aarontristancho.todoapp.dto.CreateTodoRequest;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Status;
 import com.aarontristancho.todoapp.service.TodoService;
@@ -33,8 +34,8 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
-        Todo createdTodo = todoService.createTodo(todo);
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody CreateTodoRequest request) {
+        Todo createdTodo = todoService.createTodo(request);
         return new ResponseEntity<>(createdTodo, HttpStatus.CREATED);
     }
 

@@ -1,38 +1,29 @@
-package com.aarontristancho.todoapp.model;
+package com.aarontristancho.todoapp.dto;
 
 import com.aarontristancho.todoapp.model.enums.Priority;
-import com.aarontristancho.todoapp.model.enums.Status;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
-@Entity
-public class Todo {
+public class CreateTodoRequest {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @NotBlank
     private String title;
     private String note;
     private String category;
-    @Enumerated(EnumType.STRING)
-    private Status status;
-    @Enumerated(EnumType.STRING)
     private Priority priority;
 
-
     // Empty constructor
-    public Todo() {
+    public CreateTodoRequest() {
+    }
+
+    // Constructor with parameters
+    public CreateTodoRequest(String title, String note, String category, Priority priority) {
+        this.title = title;
+        this.note = note;
+        this.category = category;
+        this.priority = priority;
     }
 
     // Setters&Getters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -57,14 +48,6 @@ public class Todo {
         this.category = category;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public Priority getPriority() {
         return priority;
     }
@@ -72,5 +55,4 @@ public class Todo {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
 }
