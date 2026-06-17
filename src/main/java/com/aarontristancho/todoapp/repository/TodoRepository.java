@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+// Spring Data JPA repository for Todo entities.
+// Provides CRUD operations and custom query methods.
+
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     List<Todo> findByCategoryIgnoreCase(String category);

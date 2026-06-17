@@ -1,5 +1,7 @@
 package com.aarontristancho.todoapp.error;
 
+// Represents a single validation error for a specific field.
+
 public class ValidationError {
 
     private String field;

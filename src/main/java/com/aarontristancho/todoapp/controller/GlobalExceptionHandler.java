@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-//Class to transform Java exceptions to HTTP responses (404, 200,...)
+// Transforms Java exceptions to HTTP responses
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Translate this exception to an HTTP response 404
+    /* Executed when a requested Todo cannot be found.
+       Converts the custom business exception into an HTTP 404 response
+       so the client receives a meaningful error instead of an internal server error.
+     */
     @ExceptionHandler(TodoNotFoundException.class) //Annotation - When this exception occurs, execute the below method
     public ResponseEntity<String> handleTodoNotFound(TodoNotFoundException ex) { //ResponseEntity represents the entire HTTP response
         return new ResponseEntity<>(
@@ -26,12 +30,16 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // Translate this validation exception to an HTTP response 400
+    /* Handles validation errors triggered by @Valid annotations.
+       Extracts all invalid fields and their error messages, then
+       returns a structured 400 Bad Request response.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleTodoInvalidData(MethodArgumentNotValidException ex) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         List<ValidationError> validationErrors = new ArrayList<>();
 
+        // Convert each Spring FieldError into the application's custom ValidationError format.
         for (FieldError fieldError : fieldErrors) {
             ValidationError validationError;
             String field = fieldError.getField();
@@ -40,6 +48,7 @@ public class GlobalExceptionHandler {
             validationErrors.add(validationError);
         }
 
+        // Wrap all validation errors in a response DTO and send them back with HTTP 400 (Bad Request).
         ValidationErrorResponse response = new ValidationErrorResponse(validationErrors);
         return ResponseEntity.badRequest().body(response);
 

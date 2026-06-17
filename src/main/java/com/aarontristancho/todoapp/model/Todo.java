@@ -3,7 +3,8 @@ package com.aarontristancho.todoapp.model;
 import com.aarontristancho.todoapp.model.enums.Priority;
 import com.aarontristancho.todoapp.model.enums.Status;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+
+// Represents a task in the Todo application.
 
 @Entity
 public class Todo {

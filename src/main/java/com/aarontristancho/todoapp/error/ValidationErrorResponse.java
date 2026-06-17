@@ -2,6 +2,8 @@ package com.aarontristancho.todoapp.error;
 
 import java.util.List;
 
+// Response DTO containing all validation errors detected during request processing.
+
 public class ValidationErrorResponse {
 
     private List<ValidationError> errors;

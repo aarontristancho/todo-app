@@ -3,6 +3,9 @@ package com.aarontristancho.todoapp.dto;
 import com.aarontristancho.todoapp.model.enums.Priority;
 import jakarta.validation.constraints.NotBlank;
 
+// Request DTO used to create a new todo.
+// Contains the data provided by the client when creating a task.
+
 public class CreateTodoRequest {
 
     @NotBlank

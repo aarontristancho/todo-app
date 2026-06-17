@@ -3,6 +3,9 @@ package com.aarontristancho.todoapp.dto;
 import com.aarontristancho.todoapp.model.enums.Priority;
 import com.aarontristancho.todoapp.model.enums.Status;
 
+// Request DTO used to update an existing todo.
+// Only provided fields will be modified.
+
 public class UpdateTodoRequest {
 
     private String title;
