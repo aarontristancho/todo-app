@@ -1,6 +1,7 @@
 package com.aarontristancho.todoapp.controller;
 
 import com.aarontristancho.todoapp.dto.CreateTodoRequest;
+import com.aarontristancho.todoapp.dto.UpdateTodoRequest;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Status;
 import com.aarontristancho.todoapp.service.TodoService;
@@ -40,8 +41,8 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        Todo updatedTodo = todoService.updateTodo(id, todo);
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody UpdateTodoRequest request) {
+        Todo updatedTodo = todoService.updateTodo(id, request);
         return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
 

@@ -1,6 +1,7 @@
 package com.aarontristancho.todoapp.service;
 
 import com.aarontristancho.todoapp.dto.CreateTodoRequest;
+import com.aarontristancho.todoapp.dto.UpdateTodoRequest;
 import com.aarontristancho.todoapp.exception.TodoNotFoundException;
 import com.aarontristancho.todoapp.model.Todo;
 import com.aarontristancho.todoapp.model.enums.Priority;
@@ -60,22 +61,22 @@ public class TodoService {
     }
 
     //PUT - modify an entire "to do"
-    public Todo updateTodo(Long id, Todo updatedTodo) {
+    public Todo updateTodo(Long id, UpdateTodoRequest request) {
         Todo todo = getTodoById(id); // First check if this id exist
-        if (updatedTodo.getTitle() != null) {
-            todo.setTitle(updatedTodo.getTitle());
+        if (request.getTitle() != null) {
+            todo.setTitle(request.getTitle());
         }
-        if (updatedTodo.getNote() != null) {
-            todo.setNote(updatedTodo.getNote());
+        if (request.getNote() != null) {
+            todo.setNote(request.getNote());
         }
-        if (updatedTodo.getCategory() != null) {
-            todo.setCategory(updatedTodo.getCategory());
+        if (request.getCategory() != null) {
+            todo.setCategory(request.getCategory());
         }
-        if (updatedTodo.getStatus() != null) {
-            todo.setStatus(updatedTodo.getStatus());
+        if (request.getStatus() != null) {
+            todo.setStatus(request.getStatus());
         }
-        if (updatedTodo.getPriority() != null) {
-            todo.setPriority(updatedTodo.getPriority());
+        if (request.getPriority() != null) {
+            todo.setPriority(request.getPriority());
         }
         return todoRepository.save(todo);
     }
