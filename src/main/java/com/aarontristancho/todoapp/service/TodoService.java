@@ -49,7 +49,7 @@ public class TodoService {
 
     // POST - Creates a new todo from the request data.
     // New todos are always created with PENDING status and MEDIUM priority when no priority is provided.
-    public Todo createTodo(CreateTodoRequest request) { // "request" as a DTO object transfers to "to do" entity
+    public Todo createTodo(CreateTodoRequest request) { // "request" as a DTO object, transfers to todo entity
         Todo todo = new Todo();
         todo.setTitle(request.getTitle());
         todo.setNote(request.getNote());
