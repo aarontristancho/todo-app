@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.aarontristancho.todoapp.model.enums.Priority.HIGH;
@@ -17,6 +18,7 @@ import static com.aarontristancho.todoapp.model.enums.Status.PENDING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class TodoServiceTest {
@@ -28,6 +30,70 @@ public class TodoServiceTest {
     void setUp() {
         todoRepository = Mockito.mock(TodoRepository.class);
         todoService = new TodoService(todoRepository);
+    }
+
+    // getAllTodos Tests
+    @Test
+    void shouldReturnAllTodosWhenNoFiltersProvided() {
+        // ARRANGE
+        List<Todo> todos = List.of(new Todo(), new Todo());
+
+        when(todoRepository.findAll()).thenReturn(todos);
+
+        // ACT
+        List<Todo> result = todoService.getAllTodos(null, null);
+
+        // ASSERT
+        assertEquals(todos, result);
+        verify(todoRepository).findAll();
+    }
+
+    @Test
+    void shouldReturnTodosFilteredByCategory() {
+        // ARRANGE
+        String category = "Category Test";
+        List<Todo> todos = List.of(new Todo());
+
+        when(todoRepository.findByCategoryIgnoreCase(category)).thenReturn(todos);
+
+        // ACT
+        List<Todo> result = todoService.getAllTodos(category, null);
+
+        // ASSERT
+        assertEquals(todos, result);
+        verify(todoRepository).findByCategoryIgnoreCase(category);
+    }
+
+    @Test
+    void shouldReturnTodosFilteredByStatus() {
+        // ARRANGE
+        List<Todo> todos = List.of(new Todo());
+
+        when(todoRepository.findByStatus(PENDING)).thenReturn(todos);
+
+        // ACT
+        List<Todo> result = todoService.getAllTodos(null, PENDING);
+
+        // ASSERT
+        assertEquals(todos, result);
+        verify(todoRepository).findByStatus(PENDING);
+    }
+
+    @Test
+    void shouldReturnTodosFilteredByCategoryAndStatus() {
+        // ARRANGE
+        String category = "Category Test";
+        List<Todo> todos = List.of(new Todo());
+
+        when(todoRepository.findByCategoryIgnoreCaseAndStatus(category, PENDING))
+                .thenReturn(todos);
+
+        // ACT
+        List<Todo> result = todoService.getAllTodos(category, PENDING);
+
+        // ASSERT
+        assertEquals(todos, result);
+        verify(todoRepository).findByCategoryIgnoreCaseAndStatus(category, PENDING);
     }
 
     // getTodoById Test
@@ -57,9 +123,9 @@ public class TodoServiceTest {
         // When Service asks to Repository for id - then return an empty Optional
         when(todoRepository.findById(id)).thenReturn(Optional.empty());
 
-        // ASSERT WITH ACT - Verify if this exception is thrown
+        // ASSERT - Verify if this exception is thrown
         assertThrows(TodoNotFoundException.class,
-                () -> todoService.getTodoById(id), "Se espera TodoNotFoundException");
+                () -> todoService.getTodoById(id), "TodoNotFoundException is expected.");
     }
 
     // createTodo Tests
@@ -70,12 +136,6 @@ public class TodoServiceTest {
         request.setTitle("Todo Test");
         request.setCategory("Todo Category");
         request.setPriority(HIGH);
-
-        Todo savedTodo = new Todo();
-        savedTodo.setTitle("Todo Test");
-        savedTodo.setCategory("Todo Category");
-        savedTodo.setPriority(HIGH);
-        savedTodo.setStatus(PENDING);
 
         when(todoRepository.save(any(Todo.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
@@ -180,7 +240,34 @@ public class TodoServiceTest {
 
         // ASSERT WITH ACT - Verify if this exception is thrown
         assertThrows(TodoNotFoundException.class,
-                () -> todoService.updateTodo(id, request), "Se espera TodoNotFoundException");
+                () -> todoService.updateTodo(id, request), "TodoNotFoundException is expected.");
+    }
+
+    // deleteTodo Tests
+    @Test
+    void shouldDeleteTodoWhenTodoExists() {
+        // ARRANGE
+        Long id = 1L;
+        Todo todo = new Todo();
+        when(todoRepository.findById(id)).thenReturn(Optional.of(todo));
+
+        // ACT
+        todoService.deleteTodo(id);
+
+        // ASSERT
+        verify(todoRepository).findById(id);
+        verify(todoRepository).deleteById(id);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDeletingNonExistingTodo() {
+        // ARRANGE
+        Long id = 1L;
+        when(todoRepository.findById(id)).thenReturn(Optional.empty());
+
+        // ASSERT
+        assertThrows(TodoNotFoundException.class,
+                () -> todoService.deleteTodo(id), "TodoNotFoundException is expected.");
     }
 
 }
