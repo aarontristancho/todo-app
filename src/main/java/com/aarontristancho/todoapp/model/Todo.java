@@ -3,14 +3,19 @@ package com.aarontristancho.todoapp.model;
 import com.aarontristancho.todoapp.model.enums.Priority;
 import com.aarontristancho.todoapp.model.enums.Status;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // Represents a task in the Todo application.
 
+@Getter @Setter
+@NoArgsConstructor
 @Entity
 public class Todo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String note;
@@ -19,59 +24,5 @@ public class Todo {
     private Status status;
     @Enumerated(EnumType.STRING)
     private Priority priority;
-
-
-    // Empty constructor
-    public Todo() {
-    }
-
-    // Setters&Getters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
 
 }

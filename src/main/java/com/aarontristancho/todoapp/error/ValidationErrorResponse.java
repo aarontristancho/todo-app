@@ -1,27 +1,18 @@
 package com.aarontristancho.todoapp.error;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 // Response DTO containing all validation errors detected during request processing.
 
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class ValidationErrorResponse {
 
     private List<ValidationError> errors;
 
-    // Constructor - empty
-    public ValidationErrorResponse() {}
-
-    // Constructor with parameters
-    public ValidationErrorResponse(List<ValidationError> errors) {
-        this.errors = errors;
-    }
-
-    // Getters & Setters
-    public List<ValidationError> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<ValidationError> errors) {
-        this.errors = errors;
-    }
 }

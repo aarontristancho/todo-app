@@ -2,10 +2,16 @@ package com.aarontristancho.todoapp.dto;
 
 import com.aarontristancho.todoapp.model.enums.Priority;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 // Request DTO used to create a new todo.
 // Contains the data provided by the client when creating a task.
 
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class CreateTodoRequest {
 
     @NotBlank
@@ -14,48 +20,4 @@ public class CreateTodoRequest {
     private String category;
     private Priority priority;
 
-    // Empty constructor
-    public CreateTodoRequest() {
-    }
-
-    // Constructor with parameters
-    public CreateTodoRequest(String title, String note, String category, Priority priority) {
-        this.title = title;
-        this.note = note;
-        this.category = category;
-        this.priority = priority;
-    }
-
-    // Setters&Getters
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
 }
