@@ -1,0 +1,13 @@
+.todo-filters {
+    display: flex;
+    gap: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group select {
+    min-width: 180px;
+}
