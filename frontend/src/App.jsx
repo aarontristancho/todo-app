@@ -1,8 +1,17 @@
 import './App.css'
+import Header from './components/Header'
+import TodoFilters from './components/TodoFilters';
 
 function App() {
   return (
-    <h1>Todo App</h1>
+    <>
+      <Header
+        title='Todo App'
+        description="Manage your tasks efficiently"
+      />
+      <TodoFilters
+      />
+    </>
   );
 }
 
