@@ -1,4 +1,5 @@
 import TodoRow from "./TodoRow";
+import "./TodoTable.css";
 
 function TodoTable() {
     const todos = [ 
@@ -14,7 +15,7 @@ function TodoTable() {
             title: "Todo 2",
             category: "Category 2",
             priority: "MEDIUM",
-            status: "IN_PROGRESS"
+            status: "IN PROGRESS"
         },
         {
             id: 3,
@@ -26,13 +27,13 @@ function TodoTable() {
     ];
 
     return (
-        <table>
-            <thead>
+        <table className="todo-table">
+            <thead className="todo-table-head">
                 <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Priority</th>
-                    <th>Status</th>
+                    <th>TASK</th>
+                    <th>CATEGORY</th>
+                    <th>PRIORITY</th>
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody>

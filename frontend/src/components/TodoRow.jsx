@@ -1,3 +1,5 @@
+import "./TodoRow.css";
+
 function TodoRow({ todo }) {
 
   return (

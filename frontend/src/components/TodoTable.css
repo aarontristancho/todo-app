@@ -1,0 +1,19 @@
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dfdfdf;
+}
+
+.todo-table th {
+    padding: 7px 9px;
+}
+
+.todo-table td {
+    padding: 7px 9px;
+}
+
+.todo-table-head {
+    text-align: left;
+    background-color: #e2e2e2; 
+    border: 1px solid #dfdfdf;
+}
