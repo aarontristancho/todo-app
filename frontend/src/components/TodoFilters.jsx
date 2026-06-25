@@ -9,6 +9,8 @@ function TodoFilters({ category, setCategory, status, setStatus }) {
                 <label>Category</label>
                 <select value={category} onChange={(event) => {setCategory(event.target.value);}}>
                     <option value="">All Categories</option>
+                    <option value="Category 1">Category 1</option>
+                    <option value="Category 2">Category 2</option>
                 </select>
                 <p>Selected Category: {category}</p>
             </div>
@@ -18,7 +20,7 @@ function TodoFilters({ category, setCategory, status, setStatus }) {
                 <select value={status} onChange={(event) => {setStatus(event.target.value)}}>
                     <option value="">All Statuses</option>
                     <option value="PENDING">PENDING</option>
-                    <option value="IN_PROGRESS">IN PROGRESS</option>
+                    <option value="IN PROGRESS">IN PROGRESS</option>
                     <option value="COMPLETED">COMPLETED</option>
                 </select>
                 <p>Selected Status: {status}</p>

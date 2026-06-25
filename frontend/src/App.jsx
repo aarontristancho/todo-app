@@ -21,7 +21,10 @@ const [status, setStatus] = useState('');
         status={status}
         setStatus={setStatus}
       />
-      <TodoTable/>
+      <TodoTable
+        category={category}
+        status={status}
+      />
     </div>
   );
 }

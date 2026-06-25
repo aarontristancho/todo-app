@@ -1,7 +1,7 @@
 import TodoRow from "./TodoRow";
 import "./TodoTable.css";
 
-function TodoTable() {
+function TodoTable({ category, status }) {
     const todos = [ 
         {
             id: 1,
@@ -26,6 +26,12 @@ function TodoTable() {
         }
     ];
 
+    const filteredTodos = todos.filter(todo => {
+        const matchesCategory = (category === '' || todo.category === category) 
+        const matchesStatus = (status === '' || todo.status === status)
+        return matchesCategory && matchesStatus
+    })
+
     return (
         <table className="todo-table">
             <thead className="todo-table-head">
@@ -37,7 +43,7 @@ function TodoTable() {
                 </tr>
             </thead>
             <tbody>
-                {todos.map(todo => 
+                {filteredTodos.map(todo => 
                 <TodoRow key={todo.id} todo={todo} />)}
             </tbody>
         </table>
