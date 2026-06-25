@@ -8,6 +8,29 @@ function App() {
 
 const [category, setCategory] = useState('');
 const [status, setStatus] = useState('');
+const [todos, setTodos] = useState([ 
+    {
+        id: 1,
+        title: "Todo 1",
+        category: "Category 1",
+        priority: "LOW",
+        status: "PENDING"
+    },
+    {
+        id: 2,
+        title: "Todo 2",
+        category: "Category 2",
+        priority: "MEDIUM",
+        status: "IN PROGRESS"
+    },
+    {
+        id: 3,
+        title: "Todo 3",
+        category: "Category 2",
+        priority: "LOW",
+        status: "COMPLETED"
+    }
+]);
 
   return (
     <div className="app">
@@ -24,6 +47,7 @@ const [status, setStatus] = useState('');
       <TodoTable
         category={category}
         status={status}
+        todos={todos}
       />
     </div>
   );

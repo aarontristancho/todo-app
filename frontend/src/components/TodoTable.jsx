@@ -1,30 +1,7 @@
 import TodoRow from "./TodoRow";
 import "./TodoTable.css";
 
-function TodoTable({ category, status }) {
-    const todos = [ 
-        {
-            id: 1,
-            title: "Todo 1",
-            category: "Category 1",
-            priority: "LOW",
-            status: "PENDING"
-        },
-        {
-            id: 2,
-            title: "Todo 2",
-            category: "Category 2",
-            priority: "MEDIUM",
-            status: "IN PROGRESS"
-        },
-        {
-            id: 3,
-            title: "Todo 3",
-            category: "Category 2",
-            priority: "LOW",
-            status: "COMPLETED"
-        }
-    ];
+function TodoTable({ category, status, todos }) {
 
     const filteredTodos = todos.filter(todo => {
         const matchesCategory = (category === '' || todo.category === category) 
