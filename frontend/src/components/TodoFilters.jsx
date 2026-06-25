@@ -1,12 +1,10 @@
 import './TodoFilters.css';
-import { useState } from "react";
 
-function TodoFilters() {
-    const [category, setCategory] = useState('');
-    const [status, setStatus] = useState('');
+function TodoFilters({ category, setCategory, status, setStatus }) {
 
     return (
         <div className='todo-filters'>
+
             <div className='filter-group'>
                 <label>Category</label>
                 <select value={category} onChange={(event) => {setCategory(event.target.value);}}>
@@ -14,6 +12,7 @@ function TodoFilters() {
                 </select>
                 <p>Selected Category: {category}</p>
             </div>
+
             <div className='filter-group'>
                 <label>Status</label>
                 <select value={status} onChange={(event) => {setStatus(event.target.value)}}>
@@ -24,6 +23,7 @@ function TodoFilters() {
                 </select>
                 <p>Selected Status: {status}</p>
             </div>
+
         </div>
     )
 }
