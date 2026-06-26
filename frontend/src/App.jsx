@@ -9,16 +9,39 @@ function App() {
 const [category, setCategory] = useState('');
 const [status, setStatus] = useState('');
 const [todos, setTodos] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
 
 useEffect(() => {
   async function fetchTodos() {
-    const response = await fetch("http://localhost:8080/todos");
-    const data = await response.json();
-    setTodos(data);
+    try {
+      const response = await fetch("http://localhost:8080/todos");
+      if (!response.ok) {
+        throw new Error(
+          `Error ${response.status}: The tasks cannot be loaded.`);
+      }
+      const data = await response.json();
+      setTodos(data);
     }
 
-    fetchTodos();
+    catch (error) {
+      setError(error.message);
+    }
+    
+    finally {
+      setLoading(false);
+    }
+  }
+
+  fetchTodos();
 }, []);
+
+if(loading) {
+  return  <p>Loading tasks...</p>;
+}
+if (error) {
+  return <p>{error}</p>;
+}
 
   return (
     <div className="app">
