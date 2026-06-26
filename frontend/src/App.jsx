@@ -2,35 +2,23 @@ import './App.css'
 import Header from './components/Header'
 import TodoFilters from './components/TodoFilters';
 import TodoTable from './components/TodoTable';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
 
 const [category, setCategory] = useState('');
 const [status, setStatus] = useState('');
-const [todos, setTodos] = useState([ 
-    {
-        id: 1,
-        title: "Todo 1",
-        category: "Category 1",
-        priority: "LOW",
-        status: "PENDING"
-    },
-    {
-        id: 2,
-        title: "Todo 2",
-        category: "Category 2",
-        priority: "MEDIUM",
-        status: "IN PROGRESS"
-    },
-    {
-        id: 3,
-        title: "Todo 3",
-        category: "Category 2",
-        priority: "LOW",
-        status: "COMPLETED"
+const [todos, setTodos] = useState([]);
+
+useEffect(() => {
+  async function fetchTodos() {
+    const response = await fetch("http://localhost:8080/todos");
+    const data = await response.json();
+    setTodos(data);
     }
-]);
+
+    fetchTodos();
+}, []);
 
   return (
     <div className="app">
