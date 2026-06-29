@@ -43,6 +43,13 @@ if (error) {
   return <p>{error}</p>;
 }
 
+const categories = todos.map(todo => todo.category);
+
+const uniqueCategories = new Set(categories);
+
+const categoriesArray = Array.from(uniqueCategories);
+
+
   return (
     <div className="app">
       <Header
@@ -54,6 +61,7 @@ if (error) {
         setCategory={setCategory}
         status={status}
         setStatus={setStatus}
+        categories={categoriesArray}
       />
       <TodoTable
         category={category}

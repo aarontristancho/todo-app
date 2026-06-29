@@ -1,6 +1,6 @@
 import './TodoFilters.css';
 
-function TodoFilters({ category, setCategory, status, setStatus }) {
+function TodoFilters({ category, setCategory, status, setStatus, categories }) {
 
     return (
         <div className='todo-filters'>
@@ -9,8 +9,11 @@ function TodoFilters({ category, setCategory, status, setStatus }) {
                 <label>Category</label>
                 <select value={category} onChange={(event) => {setCategory(event.target.value);}}>
                     <option value="">All Categories</option>
-                    <option value="Category 1">Category 1</option>
-                    <option value="Category 2">Category 2</option>
+                    {categories.map((category) => (
+                        <option key={category} value={category}> 
+                            {category}
+                        </option>
+                    ))}
                 </select>
                 <p>Selected Category: {category}</p>
             </div>
