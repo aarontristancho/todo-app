@@ -2,6 +2,7 @@ import './App.css'
 import Header from './components/Header'
 import TodoFilters from './components/TodoFilters';
 import TodoTable from './components/TodoTable';
+import TodoForm from './components/TodoForm';
 import { useState, useEffect } from "react";
 
 function App() {
@@ -11,6 +12,7 @@ const [status, setStatus] = useState('');
 const [todos, setTodos] = useState([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
+const [isCreateModalOpen, setIsCreateModalOpen] = useState(true);
 
 useEffect(() => {
   async function fetchTodos() {
@@ -67,6 +69,10 @@ const categoriesArray = Array.from(uniqueCategories);
         category={category}
         status={status}
         todos={todos}
+      />
+      <TodoForm
+        isOpen={isCreateModalOpen}
+        setIsOpen={setIsCreateModalOpen}
       />
     </div>
   );
