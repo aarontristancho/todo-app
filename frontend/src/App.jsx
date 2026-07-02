@@ -7,49 +7,49 @@ import { useState, useEffect } from "react";
 
 function App() {
 
-const [category, setCategory] = useState('');
-const [status, setStatus] = useState('');
-const [todos, setTodos] = useState([]);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(null);
-const [isCreateModalOpen, setIsCreateModalOpen] = useState(true);
+  const [category, setCategory] = useState('');
+  const [status, setStatus] = useState('');
+  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(true);
 
-useEffect(() => {
-  async function fetchTodos() {
-    try {
-      const response = await fetch("http://localhost:8080/todos");
-      if (!response.ok) {
-        throw new Error(
-          `Error ${response.status}: The tasks cannot be loaded.`);
+  useEffect(() => {
+    async function fetchTodos() {
+      try {
+        const response = await fetch("http://localhost:8080/todos");
+        if (!response.ok) {
+          throw new Error(
+            `Error ${response.status}: The tasks cannot be loaded.`);
+        }
+        const data = await response.json();
+        setTodos(data);
       }
-      const data = await response.json();
-      setTodos(data);
+
+      catch (error) {
+        setError(error.message);
+      }
+      
+      finally {
+        setLoading(false);
+      }
     }
 
-    catch (error) {
-      setError(error.message);
-    }
-    
-    finally {
-      setLoading(false);
-    }
+    fetchTodos();
+  }, []);
+
+  if(loading) {
+    return  <p>Loading tasks...</p>;
+  }
+  if (error) {
+    return <p>{error}</p>;
   }
 
-  fetchTodos();
-}, []);
+  const categories = todos.map(todo => todo.category);
 
-if(loading) {
-  return  <p>Loading tasks...</p>;
-}
-if (error) {
-  return <p>{error}</p>;
-}
+  const uniqueCategories = new Set(categories);
 
-const categories = todos.map(todo => todo.category);
-
-const uniqueCategories = new Set(categories);
-
-const categoriesArray = Array.from(uniqueCategories);
+  const categoriesArray = Array.from(uniqueCategories);
 
 
   return (
@@ -73,6 +73,7 @@ const categoriesArray = Array.from(uniqueCategories);
       <TodoForm
         isOpen={isCreateModalOpen}
         setIsOpen={setIsCreateModalOpen}
+        categories={categories}
       />
     </div>
   );
